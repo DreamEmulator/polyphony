@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import WebMidi from  'webMidi';
+import WebMidi from 'webmidi';
 
-class webMidi extends Component {
+class MidiListener extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ready: "false",
+            ready: false,
         }
     }
 
@@ -14,7 +14,15 @@ class webMidi extends Component {
     }
 
     componentDidMount() {
+        WebMidi.enable( (err) => {
 
+            if (err) {
+                console.log("WebMidi could not be enabled.", err);
+            } else {
+                this.setState({ready: true})
+            }
+
+        });
     }
 
     componentWillUnmount() {
@@ -24,10 +32,10 @@ class webMidi extends Component {
     render() {
         return (
             <div>
-                <h4>{this.state.ready}</h4>
+                <h4>{this.state.ready && "Midi is ready"}</h4>
             </div>
         );
     }
 }
 
-export default webMidi;
+export default MidiListener;
