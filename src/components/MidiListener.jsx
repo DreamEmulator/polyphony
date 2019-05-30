@@ -17,7 +17,7 @@ class MidiListener extends Component {
             octave: null,
         }
         this.midiEvents = React.createRef();
-        this.DEBUG = false;
+        this.DEBUG = true;
     }
 
     componentDidMount() {
@@ -41,13 +41,13 @@ class MidiListener extends Component {
         const input = WebMidi.inputs[0];
 
         input.addListener("noteon", "all", e => {
-            this.setState({midi: e.data, midiNote: e.data[1], note: e.note.name, octave: e.note.octave});
+            this.setState({midi: e.data, midiNote: e.data[1], note: e.note.name, octave: e.note.octave, bonus: e.data[0]});
             this.changeColor();
             this.size();
-            this.midiEvents.current.drawLissajous(Math.ceil(this.state.midiNote / 60), this.state.octave)
+            this.midiEvents.current.drawLissajous(Math.ceil(this.state.midiNote / this.state.octave)/2, Math.ceil(this.state.midiNote * this.state.octave)/20);
         });
 
-        input.addListener("midimessage", "all", e => {
+        input.addListener("pitchbend", "all", e => {
             console.log(e);
         });
 
@@ -70,8 +70,6 @@ class MidiListener extends Component {
                     <h4>{this.state.ready && "Midi is ready with " + this.state.inputs + " inputs"}</h4>
                     <h5>{"Note: " + this.state.note}</h5>
                     <h5>{"Octave: " + this.state.octave}</h5>
-                    <pre>{JSON.stringify(this.state.midi)}</pre>
-                    <a href={"https://codepen.io/Rumyra/pen/NxdbzL"}>Example + </a>
                     <a href={"http://djipco.github.io/webmidi/latest/classes/WebMidi.html"}>Docs</a>
                 </DebugInfo>
             </Fragment>

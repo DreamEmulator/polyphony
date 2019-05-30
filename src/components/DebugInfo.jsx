@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 
 class DebugInfo extends Component {
     render() {
-        if (this.props.debug === true){
+        if (this.props.debug === true) {
             return (
-                <div>
+                <div style={style.container}>
                     {this.props.children}
                 </div>
             );
@@ -15,3 +15,12 @@ class DebugInfo extends Component {
 }
 
 export default DebugInfo;
+
+const style = {
+    container: {
+        position: 'absolute',
+        bottom: 0,
+        left: 20,
+        color: '#fff',
+    }
+};

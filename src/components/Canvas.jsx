@@ -6,7 +6,7 @@ class Canvas extends Component {
         this.drawLissajous(this.props.octave, this.props.note);
     }
 
-    drawLissajous = (i, n) => {
+    drawLissajous = (i, n, x) => {
         let canvas = document.getElementById('drawingCanvas');
         if (!canvas || !canvas.getContext) {
             return false;
@@ -21,7 +21,7 @@ class Canvas extends Component {
         for (let j = 0; j <= 2 * Math.PI; j += Math.PI / n / i) {
             let x = radius * Math.sin(i * j);
             let y = radius * Math.sin((i + 1) * j);
-            ctx.lineTo((Base.x + x)-0.5, (Base.y - y)-0.5);
+            ctx.lineTo((Base.x + x)+0.5, (Base.y - y)+0.5);
         }
         ctx.stroke();
         // requestAnimationFrame(()=>this.drawLissajous(this.props.octave, this.props.note));
