@@ -6,6 +6,7 @@ class DebugInfo extends Component {
             return (
                 <div style={style.container}>
                     {this.props.children}
+                    <p>To setup: Open Audio Midi Setup > Click Window > Show Midi Studio > Enable the IAC driver </p>
                 </div>
             );
         } else {
